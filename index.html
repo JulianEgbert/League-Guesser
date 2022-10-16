@@ -6,11 +6,16 @@
 <html>
 <body>
 
-<h1>League Guesser <a id="version"></a></h1>
-<div>
-    <div><img id="championImage" src="https://ddragon.leagueoflegends.com/cdn/img/champion/loading/Aatrox_0.jpg"></div>
+<div id="game">
+    <h1>League Guesser</h1>
+    <div id="score">000</div>
+    <div id="imageRow"><img id="championImage" src=""></div>
+    <div>
+        <input type="text" id="input">
+        <button onClick="checkInput()"> Enter </button>
+    </div>
 </div>
-<button onClick="newChampion()">New </button>
+
 
 </body>
 <script src="script.js"></script>

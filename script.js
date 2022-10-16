@@ -4,6 +4,7 @@ var championNames;
 
 var currentChampion;
 var currentSkin;
+var score = 0;
 
 function getChampionList() {
     const url = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`;
@@ -37,7 +38,6 @@ function getVersion() {
 
 function handleVersionResponse(response) {
     version = response[0];
-    document.getElementById("version").innerHTML = `(Patch ${version})`;
     getChampionList();
 }
 
@@ -73,6 +73,29 @@ function updateImage(championId, skinId) {
 
 function random(max) {
     return Math.floor(Math.random() * max);
+}
+
+function checkInput() {
+    const input = document.getElementById("input").value;
+    document.getElementById("input").value = "";
+    const correct = evaluateInput(input);
+    if (correct) {
+        score++;
+    } else {
+        score = 0;
+    }
+    updateScore();
+    newChampion();
+}
+
+function evaluateInput(input) {
+    const inputParsed = input.toLowerCase();
+    const championName = currentChampion.name.toLowerCase();
+    return (inputParsed == championName);
+}
+
+function updateScore() {
+    document.getElementById("score").innerHTML = ("00" + score).slice (-3);
 }
 
 getVersion();
