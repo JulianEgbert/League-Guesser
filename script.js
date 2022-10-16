@@ -82,7 +82,7 @@ function checkInput(event) {
     if (correct) {
         score++;
     } else {
-        window.alert(`That was incorrect. The champion was ${currentChampion.name}. Your score: ${score}`);
+        window.alert(`That was incorrect. The champion was '${currentChampion.name}' (you guessed '${input}'). Your score: ${score}`);
         score = 0;
     }
     updateScore();
@@ -90,9 +90,13 @@ function checkInput(event) {
 }
 
 function evaluateInput(input) {
-    const inputParsed = input.toLowerCase();
-    const championName = currentChampion.name.toLowerCase();
-    return (inputParsed == championName);
+    var values = [input, currentChampion.name];
+    values.forEach((value, idx) => {
+        value = value.toLowerCase();
+        value = value.replaceAll(/(\.| |\'|\-|\&)/ig, "");
+        values[idx] = value;
+    });
+    return (values[0] == values[1]);
 }
 
 function updateScore() {
