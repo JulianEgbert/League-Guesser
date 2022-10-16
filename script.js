@@ -63,7 +63,6 @@ function handleChampionDetails(response) {
     updateImage(championId, randomSkin.num);
     currentChampion = champion;
     currentSkin = randomSkin;
-    console.log(currentChampion, currentSkin);
 }
 
 function updateImage(championId, skinId) {
@@ -75,13 +74,15 @@ function random(max) {
     return Math.floor(Math.random() * max);
 }
 
-function checkInput() {
+function checkInput(event) {
+    event.preventDefault(); // Prevent page from reloading when form is submitted.
     const input = document.getElementById("input").value;
     document.getElementById("input").value = "";
     const correct = evaluateInput(input);
     if (correct) {
         score++;
     } else {
+        window.alert(`That was incorrect. The champion was ${currentChampion.name}. Your score: ${score}`);
         score = 0;
     }
     updateScore();

@@ -11,8 +11,9 @@
     <div id="score">000</div>
     <div id="imageRow"><img id="championImage" src=""></div>
     <div>
-        <input type="text" id="input">
-        <button onClick="checkInput()"> Enter </button>
+        <form onsubmit="checkInput(event)">
+            <input type="text" id="input" placeholder="Champion">
+        </form>
     </div>
 </div>
 

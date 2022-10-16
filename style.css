@@ -6,11 +6,21 @@
     text-align: center;
 }
 
+#championImage{
+    height: 80vh;
+}
+
+h1 {
+    font-size: 5rem;
+    margin: 5px;
+    margin-bottom: 20px;
+}
+
 #score {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    font-size: xx-large;
+    position: fixed;
+    top: 10px;
+    right: 15px;
+    font-size: 5rem;
 }
 
 #imageRow {
@@ -22,19 +32,17 @@ html {
     color: white;
 }
 
-input {
+input[type=text] {
     background-color: white;
-    border-radius: 50px;
-    height: 50px;
-    width: 200px;
+    border-style: none;
+    border-radius: 5px;
+    width: auto;
+    font-size: 3rem;
+    padding: 10px;
 }
 
-button {
-    background-color: #2c6cd3;
-    color: white;
-    border-radius: 50px;
-    height: 50px;
-    width: 100px;
+input[type=text]:focus {
+    border-style: none;
 }
 
 button:hover {
