@@ -5,6 +5,7 @@ var championNames;
 var currentChampion;
 var currentSkin;
 var score = 0;
+var highscore = 0;
 
 function getChampionList() {
     const url = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`;
@@ -96,6 +97,10 @@ function evaluateInput(input) {
 function updateScore(isCorrect, input) {
     if (isCorrect) {
         score++;
+        if (score > highscore) {
+            highscore = score;
+            updateHighscore();
+        }
         // Hack to trigger animation
         const element = document.getElementById("game");
         element.classList.remove("animationCorrect");
@@ -108,4 +113,17 @@ function updateScore(isCorrect, input) {
     document.getElementById("score").innerHTML = ("00" + score).slice (-3);
 }
 
+function updateHighscore() {
+    localStorage.setItem("highscore", highscore);
+    document.getElementById("highscore").innerHTML = ("00" + highscore).slice (-3);
+}
+
+function loadHighscore() {
+    if (!localStorage.getItem("highscore"))
+        return;
+    highscore = localStorage.getItem("highscore");
+    updateHighscore();
+}
+
 getVersion();
+loadHighscore();

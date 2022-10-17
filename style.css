@@ -49,10 +49,13 @@ h1 {
     margin-bottom: 20px;
 }
 
-#score {
+#scoreboard {
     position: fixed;
     top: 10px;
     right: 15px;
+}
+
+#score {
     font-size: 5rem;
 }
 
