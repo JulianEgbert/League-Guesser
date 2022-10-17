@@ -7,7 +7,7 @@
 }
 
 #championImage{
-    height: 80vh;
+    height: 85vh;
     border-radius: 5px;
 }
 
@@ -39,13 +39,6 @@ input[type=text] {
     border-radius: 5px;
     width: auto;
     font-size: 3rem;
+    max-height: 10vh;
     padding: 10px;
-}
-
-input[type=text]:focus {
-    border-style: none;
-}
-
-button:hover {
-    transform: scale(1.1);
 }
