@@ -79,13 +79,7 @@ function checkInput(event) {
     const input = document.getElementById("input").value;
     document.getElementById("input").value = "";
     const correct = evaluateInput(input);
-    if (correct) {
-        score++;
-    } else {
-        window.alert(`That was incorrect. The champion was '${currentChampion.name}' (you guessed '${input}'). Your score: ${score}`);
-        score = 0;
-    }
-    updateScore();
+    updateScore(correct, input);
     newChampion();
 }
 
@@ -99,7 +93,18 @@ function evaluateInput(input) {
     return (values[0] == values[1]);
 }
 
-function updateScore() {
+function updateScore(isCorrect, input) {
+    if (isCorrect) {
+        score++;
+        // Hack to trigger animation
+        const element = document.getElementById("game");
+        element.classList.remove("animationCorrect");
+        element.offsetWidth
+        element.classList.add("animationCorrect");
+    } else {
+        window.alert(`That was incorrect. The champion was '${currentChampion.name}' (you guessed '${input}'). Your score: ${score}`);
+        score = 0;
+    }
     document.getElementById("score").innerHTML = ("00" + score).slice (-3);
 }
 
