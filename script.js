@@ -15,6 +15,13 @@ function getChampionList() {
 function handleChampionList(response) {
     champions = response.data;
     championNames = Object.keys(champions);
+    const optionList = document.getElementById("champion-names");
+  
+    championNames.forEach((champion) => {
+        const optionElement = document.createElement("option");
+        optionElement.value = champion;
+        optionList.appendChild(optionElement);
+    });
     newChampion();
 }
 
