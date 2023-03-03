@@ -14,7 +14,9 @@
     <div id="imageRow"><img id="championImage" src=""></div>
     <div>
         <form onsubmit="checkInput(event)">
-            <input type="text" id="input" placeholder="Champion">
+            <input type="text" id="input" list="champion-namens" placeholder="Champion">
+            <datalist id="champion-names">
+            </datalist>
         </form>
     </div>
 </div>
