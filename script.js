@@ -1,11 +1,13 @@
 var version;
 var champions;
 var championNames;
+var realChampionNames;
+var parsedChampionNames;
 
-var currentChampion;
-var currentSkin;
-var score = 0;
-var highscore = 0;
+let currentChampion;
+let currentSkin;
+let score = 0;
+let highscore = 0;
 
 function getChampionList() {
     const url = `https://ddragon.leagueoflegends.com/cdn/${version}/data/en_US/champion.json`;
@@ -16,6 +18,8 @@ function handleChampionList(response) {
     champions = response.data;
     championNames = Object.keys(champions);
     
+    realChampionNames = Object.values(champions).map(champion => champion.name);
+    parsedChampionNames = realChampionNames.map((name) => parseName(name));
     setupSuggestions();
     newChampion();
 }
@@ -23,7 +27,7 @@ function handleChampionList(response) {
 function setupSuggestions() {
     const optionList = document.getElementById("champion-names");
   
-    championNames.forEach((champion) => {
+    realChampionNames.forEach((champion) => {
         const optionElement = document.createElement("option");
         optionElement.value = champion;
         optionList.appendChild(optionElement);
@@ -101,6 +105,10 @@ function checkInput(event) {
     event.preventDefault(); // Prevent page from reloading when form is submitted.
     const input = document.getElementById("input");
     const value = input.value;
+    if (!parsedChampionNames.includes(parseName(value))) {
+        console.warn("Invalid champion"); // TODO: Give user feedback on his input
+        return;
+    }
     document.getElementById("input").value = "";
     input.setAttribute("list", "none");
     const correct = evaluateInput(value);
@@ -108,14 +116,12 @@ function checkInput(event) {
     newChampion();
 }
 
+function parseName(name) {
+    return name.toLowerCase().replaceAll(/(\.| |\'|\-|\&)/ig, "");
+}
+
 function evaluateInput(input) {
-    var values = [input, currentChampion.name];
-    values.forEach((value, idx) => {
-        value = value.toLowerCase();
-        value = value.replaceAll(/(\.| |\'|\-|\&)/ig, "");
-        values[idx] = value;
-    });
-    return (values[0] == values[1]);
+    return (parseName(input) == parseName(currentChampion.name));
 }
 
 function updateScore(isCorrect, input) {
