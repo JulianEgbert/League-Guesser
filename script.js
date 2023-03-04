@@ -15,6 +15,12 @@ function getChampionList() {
 function handleChampionList(response) {
     champions = response.data;
     championNames = Object.keys(champions);
+    
+    setupSuggestions();
+    newChampion();
+}
+
+function setupSuggestions() {
     const optionList = document.getElementById("champion-names");
   
     championNames.forEach((champion) => {
@@ -22,7 +28,16 @@ function handleChampionList(response) {
         optionElement.value = champion;
         optionList.appendChild(optionElement);
     });
-    newChampion();
+
+    const input = document.getElementById("input");
+    
+    input.addEventListener("input", () => {
+        if (input.value.length >= 2) {
+            input.setAttribute("list", "champion-names");
+        } else {
+            input.setAttribute("list", "none");
+        }
+    });
 }
 
 function sendRequest(url, callback, additionalInformation = null) {
@@ -84,10 +99,12 @@ function random(max) {
 
 function checkInput(event) {
     event.preventDefault(); // Prevent page from reloading when form is submitted.
-    const input = document.getElementById("input").value;
+    const input = document.getElementById("input");
+    const value = input.value;
     document.getElementById("input").value = "";
-    const correct = evaluateInput(input);
-    updateScore(correct, input);
+    input.setAttribute("list", "none");
+    const correct = evaluateInput(value);
+    updateScore(correct, value);
     newChampion();
 }
 
